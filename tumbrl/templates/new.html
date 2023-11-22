@@ -1,0 +1,38 @@
+{% block head %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card shadow-lg p-5" style="width: 22rem;">
+        <h2 class="card-title text-center">Cadastro</h2>
+        <form method="POST" class="mt-4">
+            {{ form.csrf_token }}
+
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.usarname.label(class="form-label") }}
+                {{ form.usarname(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.checkPassword.label(class="form-label") }}
+                {{ form.checkPassword(class="form-control") }}
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-block">{{ form.btn.label.text }}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

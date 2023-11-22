@@ -1,0 +1,36 @@
+{% block body %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card shadow-lg p-5" style="width: 22rem;">
+        
+        <h2 class="card-title text-center">Login</h2>
+        <form method="POST" class="mt-4">
+            {{ form.csrf_token }}
+
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control") }}
+            </div>
+
+            <div class="form-check mb-3">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+            </div>
+
+            <div class="d-grid gap-2">
+                {{ form.btn(class="btn btn-primary btn-block") }}
+            </div>
+        </form>
+        <div class="mt-4 text-center">
+            <a href="{{ url_for('createAccount') }}" class="btn btn-secondary">Cadastrar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

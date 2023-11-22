@@ -1,0 +1,60 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+{% block body %}
+<!-- Cabeçalho da Rede Social -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">MINHA REDE SOCIAL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!-- Botão de Logout -->
+                    <a class="btn btn-outline-primary mr-2" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <!-- Botão Meu Perfil -->
+                    <a class="btn btn-outline-primary" href="{{ url_for('profile', user_id=current_user.id) }}">Meu Perfil</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Bloco onde se encontram as postagens -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% block content %}
+            <div class="feed">
+                <!-- Mostra todas as postanges -->
+                {% for postagem in postagens %}
+                <div class="post mb-4 pb-2 border-bottom">
+                    <h2 class="username">{{ postagem.user.username }}</h2>
+                    <p>{{ postagem.post_text }}</p>
+                    <img class="img-thumbnail img-fluid mb-3" src="{{ url_for('static', filename='fotos_dos_posts/' ~ postagem.post_img) }}" alt="Imagem da postagem" style="max-height: 400px; width: auto;">
+
+                    <form action="{{ url_for('like_post', post_id=postagem.id) }}" method="post">
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Curtir</button>
+                        <span>{{ postagem.likes.count() }} curtidas</span>
+                    </form>
+                </div>
+                {% else %}
+                <!-- Se não houver postagens, mostra mensagem especificando. -->
+                <p class="text-muted text-center">Não há publicações para mostrar.</p>
+                {% endfor %}
+                
+            </div>    
+            {% endblock content %}
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+
+<!-- Link para o CSS (só muda o username) -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
